@@ -35,6 +35,14 @@ router.get(
   })
 );
 
+router.delete(
+  '/todo/:id',
+  asyncHandler(async (req, res) => {
+    const todo = await TodoService.deleteById(req.params.id as string);
+    res.json(todo);
+  })
+);
+
 interface ITodo {
   message: string;
   name: string;
@@ -47,16 +55,5 @@ router.post(
     res.json(todo);
   })
 );
-
-router.post('/full-name', (req: Request, res: Response) => {
-  const body = req.body;
-  if (body.firstName !== 'Anderson') {
-    throw new AppError({
-      customMessage: 'Name not registered',
-      status: 401,
-    });
-  }
-  res.json({ name: fullNameConcat(body.firstName, body.lastName) });
-});
 
 export default router;

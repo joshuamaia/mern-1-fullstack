@@ -25,6 +25,18 @@ class TodoService {
     return todo;
   }
 
+  async deleteById(id?: string | number | undefined): Promise<Todo> {
+    if (!id) {
+      throw new AppError({ customMessage: 'Id required', status: 404 });
+    }
+    const todo = await Todo.findOne({ where: { id } });
+    if (!todo) {
+      throw new AppError({ customMessage: 'Todo not found', status: 404 });
+    }
+    Todo.destroy({ where: { id } });
+    return todo;
+  }
+
   findAll(): Promise<Todo[]> {
     return Todo.findAll({
       attributes: {
