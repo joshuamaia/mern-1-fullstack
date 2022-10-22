@@ -8,6 +8,7 @@ import configuration from './config/configuration';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConfig } from './util/database.config';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { DatabaseConfig } from './util/database.config';
     }),
     UsersModule,
     AuthModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [
