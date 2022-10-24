@@ -1,9 +1,12 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 import { User } from 'src/users/entities/user.entity';
@@ -14,16 +17,26 @@ export class Todo extends BaseEntity {
   id: number;
 
   @Column()
-  title: string;
+  title?: string;
 
   @Column()
-  message: string;
+  message?: string;
 
   @Column()
   active?: boolean;
 
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
   @ManyToOne(() => User)
-  user: User;
+  @JoinColumn({
+    name: 'user_id',
+    referencedColumnName: 'id',
+  })
+  user?: User;
 
   @Expose()
   get nameAndRole() {

@@ -30,6 +30,6 @@ export class TodoService {
   }
 
   async update(id: number, todo: Todo) {
-    return this.todoRepository.update(id, todo);
+    return this.todoRepository.save(todo);
   }
 }
